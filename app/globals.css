@@ -2,26 +2,132 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+html{
+  background-color: #1A1A20;
+  scroll-behavior: smooth;
+  color: white;
+}
+
+.title{
+  font-family: 'Archivo Black', sans-serif;
+  font-weight: bold;
+}
+
+.power-up{
+  background-image:linear-gradient(to right, #FFF200 0%, #1b84cd 33%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 300% 100%;
+  background-position: top left;
+  transition:all 0.25s ease-in-out;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.power-up:hover{
+  background-position: top left 25%;
+  animation: tilt 0.5s ease-in-out infinite;
+}
+
+/* make a animation tilt 3 deg the text from left to right to original also scale it*/
+@keyframes tilt {
+  0% {
+    transform: rotate(0deg);
+    scale: 1;
+  }
+  25% {
+    transform: rotate(-3deg);
+    scale: 1.1;
+  }
+  50% {
+    transform: rotate(0deg);
+    scale: 1;
+  }
+  75% {
+    transform: rotate(3deg);
+    scale: 1.1;
+  }
+  100% {
+    transform: rotate(0deg);
+    scale: 1;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.project-item-inner{
+  box-shadow: inset 0px -45px 20px 6px rgb(0 0 0 / 70%);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-image{
+  margin: auto;
+  transition: all 0.25s ease-in-out;
+}
+
+.project-name-date{
+  width: 100%;
+}
+
+.project-item{
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+
+.project-item:hover .project-image{
+  transform: scale(1.1);
+}
+
+.project-item:hover{
+  transform: scale(1.1);
+}
+
+.rich-text{
+  background-image:linear-gradient(to right, #FFF200 0%, #1b84cd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition:all 0.25s ease-in-out;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.rich-text:hover{
+  transform: rotate(-3deg);
+}
+
+.fixed-nav{
+  position: fixed;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* keep rotating circle */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.bottom-circle-container .circle{
+  animation: rotate 5s linear infinite;
+}
+
+.chevron-up{
+  width:32px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
