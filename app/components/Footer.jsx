@@ -27,7 +27,7 @@ export default function Footer() {
                         </div>
                     </div>
                     <div className="footer-lower-right">
-                        <form class="form rounded-full bg-[#1F2020]">
+                        <form class="form rounded-full bg-[#1F2020] w-fit">
                             <input type="text" style={{background: 'transparent'}} className="pl-[16px] focus:outline-none placeholder:text-[#888888] text-[16px]" placeholder="your@email.com"></input>
                             <button className='bg-[#CDCDCD] text-[#222222] px-4 py-2 mr-[4px] my-[2px] rounded-full'>Send</button>
                         </form>

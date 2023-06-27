@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
+import { motion } from 'framer-motion';
 
 export default function Header() {
     const [fix, setFix] = useState(false)
@@ -24,7 +25,13 @@ export default function Header() {
     // window.addEventListener('scroll', handleScroll);
 
   return (
-    <div ref={headerRef} className={`header-container border-solid border-[7px] border-yellow w-fit rounded-full mx-auto mt-[64px] ${fix ? 'fixed-nav' : ''}`}>
+    <motion.div 
+        ref={headerRef} 
+        className={`header-container border-solid border-[7px] border-yellow w-fit rounded-full mx-auto mt-[64px] ${fix ? 'fixed-nav' : ''}`}
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1 }}
+    >
         <div className="header-inner flex gap-8 items-center py-1 pl-2 pr-3">
             <div className="active bg-yellow text-[#1A1A20] text-xl font-bold px-3 py-2 rounded-full">
                 <a href="#">Home</a>
@@ -39,6 +46,6 @@ export default function Header() {
                 <a href="#crafts">Crafts</a>
             </div>
         </div>
-    </div>
+    </motion.div>
   )
 }

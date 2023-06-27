@@ -1,8 +1,21 @@
+"use client"
+
 import React from 'react'
+import { animate, motion } from 'framer-motion'
 
 export default function Circle() {
+  const topEl = document.querySelector('.hero-container')
+  const handleClick = () => {
+    topEl.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const handleScroll = () => {
+    animate('.circle', { rotate: window.scrollY * 0.25 }, { duration: 0.5, ease: 'easeOut' })
+  }
+  window.addEventListener('scroll', handleScroll)
+
   return (
-    <div className="bottom-circle-container fixed bottom-[64px] right-[64px]">
+    <div className="bottom-circle-container fixed bottom-[64px] right-[64px] cursor-pointer" onClick={handleClick}>
         {/* <div className="bottom-circle rounded-full w-[96px] h-[96px] bg-[#1A1717] relative">
             <h1 className="text-yellow">SCROLL SCROLL SCROLL</h1>
             <div className="inner-circle rounded-full w-[64px] h-[64px] bg-[#100D0D] absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]"></div>
@@ -33,7 +46,6 @@ export default function Circle() {
         <svg className='chevron-up' width="53" height="32" viewBox="0 0 53 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M28.4141 0.848737L51.881 24.3156C53.0128 25.4474 53.0128 27.2824 51.881 28.414L49.144 31.1511C48.0141 32.2809 46.183 32.2831 45.0505 31.1559L26.3649 12.558L7.67943 31.156C6.54691 32.2832 4.71574 32.281 3.58588 31.1512L0.848842 28.4141C-0.282947 27.2824 -0.282947 25.4474 0.848842 24.3158L24.3158 0.848857C25.4474 -0.282933 27.2823 -0.282932 28.4141 0.848737Z" fill="white"/>
         </svg>
-
     </div>
   )
 }

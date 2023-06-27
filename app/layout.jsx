@@ -1,8 +1,10 @@
 import './globals.css'
 import { Outfit } from 'next/font/google'
 
-const outfit = Outfit({ subsets: ['latin'] })
-
+const outfit = Outfit({ 
+  subsets: ['latin'], 
+  display: 'swap' 
+})
 
 export const metadata = {
   title: 'Portfolio',

@@ -6,12 +6,19 @@ import sphere from '../../public/sphere.png'
 import celebchat from '../../public/celebchat.png'
 import scribble from '../../public/scribble.png'
 import qr from '../../public/qr.png'
+import { Archivo_Black } from 'next/font/google';
+
+const archivo = Archivo_Black({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap'
+})
 
 
 export default function Projects() {
   return (
     <div className="projects-container mt-[128px]" id="crafts">
-        <h1 className="title text-yellow text-[64px] mb-32px">Crafts</h1>
+        <h1 className={`${archivo.className} title text-yellow text-[64px] mb-32px`}>Crafts</h1>
         <p className="mb-[32px] text-[24px]">Great projects are like puzzle pieces they connect together. 🧩</p>
 
         {/* 6 projects 2 columns */}

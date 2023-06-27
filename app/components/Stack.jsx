@@ -1,9 +1,16 @@
 import React from 'react'
+import { Archivo_Black } from 'next/font/google';
+
+const archivo = Archivo_Black({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap'
+})
 
 export default function Stack() {
   return (
     <div className="stack-container mt-[128px]" id="stack">
-        <h1 className="title text-yellow text-[64px] mb-32px">Tech Stack</h1>
+        <h1 className={`${archivo.className} title text-yellow text-[64px] mb-32px`}>Tech Stack</h1>
         <p className="mb-[32px] text-[24px]">These are the tools and technologies I use to <span className='power-up'>power</span> up my projects.</p>
         <div className="stack-icons grid lg:grid-cols-6 sm:grid-cols-3 md:grid-cols:4 lg:gap-8 sm:gap-4 md:gap-6">
             <div className="icon-container flex flex-col items-center">

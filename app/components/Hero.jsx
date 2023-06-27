@@ -4,6 +4,7 @@ import React from 'react';
 
 import createGlobe from 'cobe';
 import { useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 export default function Hero() {
     const canvasRef = useRef();
@@ -42,7 +43,15 @@ export default function Hero() {
 
     return (
         <div className="hero-container flex justify-center">
-            <div className="hero-inner mt-[64px] w-full">
+            <motion.div className="hero-inner mt-[64px] w-full"
+              variants={{
+                hidden: { opacity: 0, y: 100 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+            >
             <div className="svg-world-container relative overflow-hidden w-full">
                 <div className="available bg-[#3B604D]/[.35] w-fit py-2 px-4 rounded-3xl absolute left-1/2 top-[10%] translate-x-[-50%]">
                     <div className="available-inner flex row items-center gap-2">
@@ -59,10 +68,10 @@ export default function Hero() {
                 <canvas
                     ref={canvasRef}
                     style={{ width: 860, height: 860, maxWidth: "100%", aspectRatio: 1 }}
-                    className='absolute left-[50%] bottom-[-48%] translate-x-[-50%]'
+                    className='absolute left-[50%] bottom-[-48%] translate-x-[-50%] world'
                 />
             </div>
-            </div>
+            </motion.div>
         </div>
     )
 }

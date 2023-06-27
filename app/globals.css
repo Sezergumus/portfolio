@@ -121,7 +121,7 @@ html{
 }
 
 .bottom-circle-container .circle{
-  animation: rotate 5s linear infinite;
+  animation: rotate 0s linear infinite;
 }
 
 .chevron-up{
@@ -130,4 +130,92 @@ html{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+/* media query for screens smaller than 900px */
+@media (max-width: 900px) {
+  .main-content{
+    max-width: 600px;
+  }
+
+  .available{
+    top: 60%;
+  }
+
+  .world{
+    display: none;
+  }
+
+  .footer-lower-content{
+    flex-direction: column;
+  }
+
+  .bottom-circle-container{
+    right: 32px;
+  }
+
+  .header-container{
+    margin-top: 32px;
+  }
+
+  #about, #stack, #crafts, .footer-container{
+    margin-top: 64px;
+  }
+
+  .footer-upper h3{
+    font-size: 36px;
+  }
+
+  .footer-lower-content{
+    align-items: center;
+    gap: 32px;
+  }
+
+  .footer-lower-left{
+    align-items: center;
+  }
+}
+
+/* media query for screens smaller than 600px */
+@media (max-width: 600px) {
+  .main-content{
+    max-width: 300px;
+  }
+
+  .header-inner{
+    gap: 1rem;
+  }
+  
+  .header-inner a{
+    font-size: 16px;
+  }
+
+  .title{
+    font-size: 32px;
+  }
+
+  .about-text p{
+    font-size: 18px;
+  }
+
+  #stack p, #crafts p{
+    font-size: 18px;
+  }
+
+  .stack-icons{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-row-gap: 16px;
+  }
+
+  .projects-content{
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .bottom-circle-container{
+    right: 16px;
+  }
+
+  .footer-upper h3{
+    font-size: 24px;
+  }
 }
