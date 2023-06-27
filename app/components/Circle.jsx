@@ -1,18 +1,21 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { animate, motion } from 'framer-motion'
 
 export default function Circle() {
-  const topEl = document.querySelector('.hero-container')
   const handleClick = () => {
     topEl.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const handleScroll = () => {
-    animate('.circle', { rotate: window.scrollY * 0.25 }, { duration: 0.5, ease: 'easeOut' })
-  }
-  window.addEventListener('scroll', handleScroll)
+  useEffect(() => {
+    const topEl = document.querySelector('.hero-container')
+
+    const handleScroll = () => {
+      animate('.circle', { rotate: window.scrollY * 0.25 }, { duration: 0.5, ease: 'easeOut' })
+    }
+    window.addEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <div className="bottom-circle-container fixed bottom-[64px] right-[64px] cursor-pointer" onClick={handleClick}>
