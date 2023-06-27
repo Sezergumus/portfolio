@@ -4,18 +4,23 @@ import React, { useEffect } from 'react'
 import { animate, motion } from 'framer-motion'
 
 export default function Circle() {
+  const [topEl, setTopEl] = React.useState(null)
+
+  React.useEffect(() => {
+    setTopEl(document.querySelector('.hero-container'))
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   const handleClick = () => {
     topEl.scrollIntoView({ behavior: 'smooth' })
   }
 
-  useEffect(() => {
-    const topEl = document.querySelector('.hero-container')
-
-    const handleScroll = () => {
-      animate('.circle', { rotate: window.scrollY * 0.25 }, { duration: 0.5, ease: 'easeOut' })
-    }
-    window.addEventListener('scroll', handleScroll)
-  }, [])
+  const handleScroll = () => {
+    animate('.circle', { rotate: window.scrollY * 0.25 }, { duration: 0.5, ease: 'easeOut' })
+  }
 
   return (
     <div className="bottom-circle-container fixed bottom-[64px] right-[64px] cursor-pointer" onClick={handleClick}>
