@@ -1,40 +1,42 @@
 import React from 'react'
+import Reveal from './utils/Reveal'
 
 export default function Footer() {
   return (
-    <div className="footer-container mt-[128px] bg-[#0B0D0D]">
+    <section className="footer-container mt-[128px] bg-[#0B0D0D]" id="footer">
         <div className="footer-content flex flex-col">
-            <div className="footer-upper py-[64px] border-b-2 border-[#393939]">
-                <h3 className="text-[48px] font-bold text-center">Contact me for <span className='rich-text'>amazing</span> works,<br/><span className='rich-text'>stunning</span> visuals.</h3>
+            <div className="footer-upper py-[64px] border-b-2 border-[#393939] text-center">
+                <div className='mx-auto w-fit'><Reveal><h3 className="text-[48px] font-bold">Contact me for <span className='rich-text'>amazing</span> works,<br/><span className='rich-text'>stunning</span> visuals.</h3></Reveal></div>
             </div>
             <div className="footer-lower py-[64px] max-w-[1000px] mx-auto w-full">
-                <div className="footer-lower-content flex flex justify-between">
-                    <div className="footer-lower-left flex flex-col">
-                        <h3 className="text-[24px] font-bold pb-[16px]">hello@<b>sezergumus</b>.dev</h3>
-                        <div className="social-icons flex gap-4">
+                <div className="footer-lower-content flex flex justify-center">
+                    <div className="footer-lower-left flex flex-col items-center">
+                        <Reveal>
+                            <a href="mailto:hello@sezergumus.dev">
+                                <div className="mail-container flex flex-row items-center justify-center gap-2">
+                                    <svg className="max-[600px]:w-[24px]" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="2.4rem" width="2.4rem" xmlns="http://www.w3.org/2000/svg"><path d="M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zm-80.8 108.9L531.7 514.4c-7.8 6.1-18.7 6.1-26.5 0L189.6 268.9A7.2 7.2 0 0 1 194 256h648.8a7.2 7.2 0 0 1 4.4 12.9z"></path></svg>
+                                    <span className="text-[48px] max-[600px]:text-[18px] font-bold">hello@<b>sezergumus</b>.dev</span>
+                                </div>
+                            </a>
+                        </Reveal>
+                        <Reveal><div className="social-icons flex gap-4 mt-4">
                             <a href="https://www.linkedin.com/in/sezergumus/" target='_blank' className="linkedin">
-                                <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg className='max-[600px]:w-[24px]' width="32px" height="32px" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M29.6391 0.00012118H2.36064C1.74171 -0.00617774 1.14556 0.233311 0.702995 0.666039C0.260433 1.09877 0.00760945 1.68939 0 2.3083V29.6969C0.00898559 30.3149 0.262414 30.9042 0.704826 31.3358C1.14724 31.7674 1.7426 32.0062 2.36064 31.9999H29.6391C30.2581 32.0048 30.8538 31.7645 31.2962 31.3315C31.7385 30.8985 31.9915 30.308 31.9998 29.6891V2.30043C31.9887 1.68333 31.7346 1.09553 31.2925 0.664787C30.8505 0.234046 30.2563 -0.00481561 29.6391 0.00012118Z" fill="white"/>
                                 <path d="M4.73696 11.9947H9.48708V27.2785H4.73696V11.9947ZM7.11333 4.38818C7.65815 4.38818 8.19072 4.54977 8.64369 4.85251C9.09665 5.15525 9.44965 5.58553 9.65802 6.08893C9.86639 6.59232 9.92078 7.14621 9.8143 7.68052C9.70782 8.21483 9.44526 8.70556 9.05983 9.09062C8.6744 9.47568 8.18343 9.73777 7.64902 9.84374C7.1146 9.94971 6.56077 9.89479 6.05757 9.68594C5.55438 9.47709 5.12443 9.12369 4.82212 8.67044C4.51982 8.21719 4.35874 7.68445 4.35925 7.13964C4.35995 6.40967 4.65042 5.70983 5.16683 5.19391C5.68325 4.67798 6.38336 4.38818 7.11333 4.38818Z" fill="black"/>
                                 <path d="M12.4667 11.9949H17.0201V14.0932H17.083C17.7178 12.8919 19.2653 11.625 21.5761 11.625C26.3866 11.6145 27.2784 14.7804 27.2784 18.8853V27.2787H22.5282V19.8427C22.5282 18.0722 22.4968 15.7929 20.0601 15.7929C17.6234 15.7929 17.2089 17.7233 17.2089 19.7273V27.2787H12.4667V11.9949Z" fill="black"/>
                                 </svg>
                             </a>
                             <a href="https://github.com/sezergumus" target='_blank' className="github">
-                                <svg width="24" height="24" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg className='max-[600px]:w-[24px]' width="32px" height="32px" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10.9773 25.7664C10.9773 25.8987 10.8251 26.0046 10.6332 26.0046C10.4148 26.0244 10.2626 25.9185 10.2626 25.7664C10.2626 25.634 10.4148 25.5281 10.6067 25.5281C10.8052 25.5083 10.9773 25.6142 10.9773 25.7664ZM8.91939 25.4686C8.87307 25.6009 9.00541 25.7531 9.20391 25.7928C9.37596 25.859 9.57446 25.7928 9.61417 25.6605C9.65387 25.5281 9.52814 25.376 9.32964 25.3164C9.1576 25.2701 8.9657 25.3363 8.91939 25.4686ZM11.8441 25.3561C11.6522 25.4024 11.5198 25.5281 11.5397 25.6803C11.5595 25.8127 11.7316 25.8987 11.9301 25.8524C12.122 25.8061 12.2543 25.6803 12.2345 25.548C12.2146 25.4223 12.036 25.3363 11.8441 25.3561ZM16.198 0C7.02033 0 -0.000244141 6.96763 -0.000244141 16.1453C-0.000244141 23.4835 4.61838 29.763 11.2155 31.973C12.0624 32.1252 12.3602 31.6025 12.3602 31.1724C12.3602 30.7621 12.3403 28.4991 12.3403 27.1096C12.3403 27.1096 7.70849 28.1021 6.7358 25.1377C6.7358 25.1377 5.98147 23.2122 4.89629 22.7159C4.89629 22.7159 3.38101 21.6771 5.00216 21.6969C5.00216 21.6969 6.64978 21.8293 7.5563 23.4041C9.00541 25.9582 11.4338 25.2238 12.38 24.787C12.5322 23.7283 12.9623 22.9939 13.4388 22.5571C9.73989 22.1469 6.00793 21.6109 6.00793 15.2454C6.00793 13.4258 6.51082 12.5126 7.56953 11.348C7.39749 10.9179 6.83505 9.14461 7.74157 6.85515C9.12451 6.42505 12.3073 8.64172 12.3073 8.64172C13.6306 8.27117 15.0533 8.07928 16.4627 8.07928C17.8721 8.07928 19.2947 8.27117 20.6181 8.64172C20.6181 8.64172 23.8009 6.41843 25.1838 6.85515C26.0903 9.15122 25.5279 10.9179 25.3559 11.348C26.4146 12.5192 27.063 13.4324 27.063 15.2454C27.063 21.6308 23.1657 22.1403 19.4668 22.5571C20.0755 23.0799 20.5917 24.0724 20.5917 25.6274C20.5917 27.8573 20.5718 30.6166 20.5718 31.1592C20.5718 31.5893 20.8762 32.112 21.7165 31.9598C28.3335 29.763 32.8198 23.4835 32.8198 16.1453C32.8198 6.96763 25.3757 0 16.198 0ZM6.43142 22.8218C6.3454 22.888 6.36525 23.0402 6.47774 23.1659C6.58361 23.2718 6.7358 23.3181 6.82182 23.2321C6.90784 23.1659 6.88799 23.0137 6.7755 22.888C6.66963 22.7821 6.51744 22.7358 6.43142 22.8218ZM5.71679 22.2858C5.67047 22.3719 5.73664 22.4777 5.86898 22.5439C5.97485 22.6101 6.10719 22.5902 6.15351 22.4976C6.19983 22.4116 6.13366 22.3057 6.00132 22.2395C5.86898 22.1998 5.76311 22.2197 5.71679 22.2858ZM7.86068 24.6415C7.75481 24.7275 7.79451 24.926 7.9467 25.0517C8.09889 25.2039 8.29078 25.2238 8.3768 25.1179C8.46282 25.0319 8.42312 24.8334 8.29078 24.7076C8.14521 24.5555 7.9467 24.5356 7.86068 24.6415ZM7.10635 23.6688C7.00047 23.735 7.00047 23.907 7.10635 24.0592C7.21222 24.2114 7.39087 24.2775 7.47689 24.2114C7.58277 24.1254 7.58277 23.9533 7.47689 23.8011C7.38426 23.6489 7.21222 23.5828 7.10635 23.6688Z" fill="white"/>
                                 </svg>
                             </a>
-                        </div>
-                    </div>
-                    <div className="footer-lower-right">
-                        <form class="form rounded-full bg-[#1F2020] w-fit">
-                            <input type="text" style={{background: 'transparent'}} className="pl-[16px] focus:outline-none placeholder:text-[#888888] text-[16px]" placeholder="your@email.com"></input>
-                            <button className='bg-[#CDCDCD] text-[#222222] px-4 py-2 mr-[4px] my-[2px] rounded-full'>Send</button>
-                        </form>
+                        </div></Reveal>
                     </div>
                 </div>
             </div>
         </div>  
-    </div>
+    </section>
   )
 }

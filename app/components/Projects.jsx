@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image'
 import collect from '../../public/collect.png'
 import yanindayim from '../../public/yanindayim.png'
@@ -7,6 +9,8 @@ import celebchat from '../../public/celebchat.png'
 import scribble from '../../public/scribble.png'
 import qr from '../../public/qr.png'
 import { Archivo_Black } from 'next/font/google';
+import Reveal from './utils/Reveal';
+import { motion, useInView, useAnimation } from 'framer-motion';
 
 const archivo = Archivo_Black({
   weight: '400',
@@ -16,86 +20,251 @@ const archivo = Archivo_Black({
 
 
 export default function Projects() {
-  return (
-    <div className="projects-container mt-[128px]" id="crafts">
-        <h1 className={`${archivo.className} title text-yellow text-[64px] mb-32px`}>Crafts</h1>
-        <p className="mb-[32px] text-[24px]">Great projects are like puzzle pieces they connect together. 🧩</p>
+    const ref = useRef(null);
+    const isInView = useInView(ref);
 
-        {/* 6 projects 2 columns */}
-        <div className="projects-content grid grid-cols-2 gap-4">
-            {/* Collect */}
-            <div className="project-item border-solid border-8 border-[#0A0A0A] rounded-lg shadow-inner">
-                <a href="https://www.collect.com.tr" target='_blank' className="project-item-inner bg-[#090707] h-full">
-                    <div className="project-image">
-                        <Image src={collect} alt="collect" className="p-8" />
-                    </div>
-                    <div className="project-name-date flex justify-between items-center">
-                        <h1 className="text-[16px] pl-4 pb-2 text-white">Collect</h1>
-                        <p className="text-[16px] pr-4 pb-2 text-white">Jan, 2023</p>
-                    </div>
-                </a>
-            </div>
-            {/* Yanındayım */}
-            <div className="project-item border-solid border-8 border-[#0A0A0A] rounded-lg shadow-inner">
-                <a href="https://www.yanindayim.co" target='_blank' className="project-item-inner bg-[#5734A8]">
-                    <div className="project-image">
-                        <Image src={yanindayim} alt="yanindayim" className="p-8" />
-                    </div>
-                    <div className="project-name-date flex justify-between items-center">
-                        <h1 className="text-[16px] pl-4 pb-2 text-white">Yanındayım</h1>
-                        <p className="text-[16px] pr-4 pb-2 text-white">Apr, 2023</p>
-                    </div>
-                </a>
-            </div>
-            {/* Sphere */}
-            <div className="project-item border-solid border-8 border-[#0A0A0A] rounded-lg shadow-inner">
-                <a href="https://threejs-sphere.sezergumus.dev" target='_blank' className="project-item-inner bg-[#060606]">
-                    <div className="project-image">
-                        <Image src={sphere} alt="sphere" className="p-8" />
-                    </div>
-                    <div className="project-name-date flex justify-between items-center">
-                        <h1 className="text-[16px] pl-4 pb-2 text-white">Sphere</h1>
-                        <p className="text-[16px] pr-4 pb-2 text-white">May, 2023</p>
-                    </div>
-                </a>
-            </div>
-            {/* Celebchat */}
-            <div className="project-item border-solid border-8 border-[#0A0A0A] rounded-lg shadow-inner">
-                <a href="https://celebchat.sezergumus.dev" target='_blank' className="project-item-inner bg-[#3A57FF]">
-                    <div className="project-image">
-                        <Image src={celebchat} alt="celebchat" className="p-8" />
-                    </div>
-                    <div className="project-name-date flex justify-between items-center">
-                        <h1 className="text-[16px] pl-4 pb-2 text-white">Celebchat</h1>
-                        <p className="text-[16px] pr-4 pb-2 text-white">Feb, 2023</p>
-                    </div>
-                </a>
-            </div>
-            {/* Scribble */}
-            <div className="project-item border-solid border-8 border-[#0A0A0A] rounded-lg shadow-inner">
-                <a href="https://scribble.sezergumus.dev/" target='_blank' className="project-item-inner bg-[#002BFF]">
-                    <div className="project-image">
-                        <Image src={scribble} alt="scribble" className="p-8" />
-                    </div>
-                    <div className="project-name-date flex justify-between items-center">
-                        <h1 className="text-[16px] pl-4 pb-2 text-white">Scribble It!</h1>
-                        <p className="text-[16px] pr-4 pb-2 text-white">Jan, 2022</p>
-                    </div>
-                </a>
-            </div>
-            {/* QR Code */}
-            <div className="project-item border-solid border-8 border-[#0A0A0A] rounded-lg shadow-inner">
-                <a href="https://qr.sezergumus.dev/" target='_blank' className="project-item-inner bg-[#002BFF]">
-                    <div className="project-image">
-                        <Image src={qr} alt="qr" className="p-8" />
-                    </div>
-                    <div className="project-name-date flex justify-between items-center">
-                        <h1 className="text-[16px] pl-4 pb-2 text-white">QR Generator</h1>
-                        <p className="text-[16px] pr-4 pb-2 text-white">Dec, 2021</p>
-                    </div>
-                </a>
+    const mainControls = useAnimation();
+    const staggerControls = useAnimation();
+
+    useEffect(() => {
+        mainControls.start(isInView ? "visible" : "hidden");
+        staggerControls.start(isInView ? "visible" : "hidden");
+    }, [isInView]);
+
+    const container = {
+        hidden: { opacity: 1, scale: 1 },
+        visible: {
+            opacity: 1,
+            scale: 1,
+            transition: {
+                staggerChildren: 0.5,
+            }
+        },
+    }
+
+    const item = {
+        hidden: { y: 75, opacity: 0},
+        visible: {
+            y: 0,
+            opacity: 1,
+        }
+    }
+
+    const projects = [
+        <div className="project-item" key="collect">
+        <div className="project-item-image-container">
+            <div className="project-item-image">
+                <Image src={collect} alt="Collect" />
             </div>
         </div>
-    </div>
-  )
+        <div className="project-text mt-4">
+            <div className="project-title flex items-center justify-between gap-5">
+                <h1 className="text-[24px] text-white font-bold">Collect</h1>
+                <div className="project-line"></div>
+                <div className="project-icons flex">
+                    <a href="https://github.com/Sezergumus/collect" target='_blank' className="github">
+                            <svg width="28" height="28" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.9773 25.7664C10.9773 25.8987 10.8251 26.0046 10.6332 26.0046C10.4148 26.0244 10.2626 25.9185 10.2626 25.7664C10.2626 25.634 10.4148 25.5281 10.6067 25.5281C10.8052 25.5083 10.9773 25.6142 10.9773 25.7664ZM8.91939 25.4686C8.87307 25.6009 9.00541 25.7531 9.20391 25.7928C9.37596 25.859 9.57446 25.7928 9.61417 25.6605C9.65387 25.5281 9.52814 25.376 9.32964 25.3164C9.1576 25.2701 8.9657 25.3363 8.91939 25.4686ZM11.8441 25.3561C11.6522 25.4024 11.5198 25.5281 11.5397 25.6803C11.5595 25.8127 11.7316 25.8987 11.9301 25.8524C12.122 25.8061 12.2543 25.6803 12.2345 25.548C12.2146 25.4223 12.036 25.3363 11.8441 25.3561ZM16.198 0C7.02033 0 -0.000244141 6.96763 -0.000244141 16.1453C-0.000244141 23.4835 4.61838 29.763 11.2155 31.973C12.0624 32.1252 12.3602 31.6025 12.3602 31.1724C12.3602 30.7621 12.3403 28.4991 12.3403 27.1096C12.3403 27.1096 7.70849 28.1021 6.7358 25.1377C6.7358 25.1377 5.98147 23.2122 4.89629 22.7159C4.89629 22.7159 3.38101 21.6771 5.00216 21.6969C5.00216 21.6969 6.64978 21.8293 7.5563 23.4041C9.00541 25.9582 11.4338 25.2238 12.38 24.787C12.5322 23.7283 12.9623 22.9939 13.4388 22.5571C9.73989 22.1469 6.00793 21.6109 6.00793 15.2454C6.00793 13.4258 6.51082 12.5126 7.56953 11.348C7.39749 10.9179 6.83505 9.14461 7.74157 6.85515C9.12451 6.42505 12.3073 8.64172 12.3073 8.64172C13.6306 8.27117 15.0533 8.07928 16.4627 8.07928C17.8721 8.07928 19.2947 8.27117 20.6181 8.64172C20.6181 8.64172 23.8009 6.41843 25.1838 6.85515C26.0903 9.15122 25.5279 10.9179 25.3559 11.348C26.4146 12.5192 27.063 13.4324 27.063 15.2454C27.063 21.6308 23.1657 22.1403 19.4668 22.5571C20.0755 23.0799 20.5917 24.0724 20.5917 25.6274C20.5917 27.8573 20.5718 30.6166 20.5718 31.1592C20.5718 31.5893 20.8762 32.112 21.7165 31.9598C28.3335 29.763 32.8198 23.4835 32.8198 16.1453C32.8198 6.96763 25.3757 0 16.198 0ZM6.43142 22.8218C6.3454 22.888 6.36525 23.0402 6.47774 23.1659C6.58361 23.2718 6.7358 23.3181 6.82182 23.2321C6.90784 23.1659 6.88799 23.0137 6.7755 22.888C6.66963 22.7821 6.51744 22.7358 6.43142 22.8218ZM5.71679 22.2858C5.67047 22.3719 5.73664 22.4777 5.86898 22.5439C5.97485 22.6101 6.10719 22.5902 6.15351 22.4976C6.19983 22.4116 6.13366 22.3057 6.00132 22.2395C5.86898 22.1998 5.76311 22.2197 5.71679 22.2858ZM7.86068 24.6415C7.75481 24.7275 7.79451 24.926 7.9467 25.0517C8.09889 25.2039 8.29078 25.2238 8.3768 25.1179C8.46282 25.0319 8.42312 24.8334 8.29078 24.7076C8.14521 24.5555 7.9467 24.5356 7.86068 24.6415ZM7.10635 23.6688C7.00047 23.735 7.00047 23.907 7.10635 24.0592C7.21222 24.2114 7.39087 24.2775 7.47689 24.2114C7.58277 24.1254 7.58277 23.9533 7.47689 23.8011C7.38426 23.6489 7.21222 23.5828 7.10635 23.6688Z" fill="white"/>
+                            </svg>
+                    </a>
+                    <a href="http://collect.com.tr/" target='_blank' className="live-project">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="32" width="32" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M888.3 757.4h-53.8c-4.2 0-7.7 3.5-7.7 7.7v61.8H197.1V197.1h629.8v61.8c0 4.2 3.5 7.7 7.7 7.7h53.8c4.2 0 7.7-3.4 7.7-7.7V158.7c0-17-13.7-30.7-30.7-30.7H158.7c-17 0-30.7 13.7-30.7 30.7v706.6c0 17 13.7 30.7 30.7 30.7h706.6c17 0 30.7-13.7 30.7-30.7V765.1c0-4.3-3.5-7.7-7.7-7.7zm18.6-251.7L765 393.7c-5.3-4.2-13-.4-13 6.3v76H438c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div className="project-stack mt-4">
+                <p className="text-white text-[18px] text-yellow font-medium">HTML - CSS - JavaScript - GSAP</p>
+            </div>
+            <div className="project-desc mt-4">
+                <p className="text-white text-[18px] font-extralight">A promotion site for a lighting series called Collect with this site I learnt how to use animations.</p>
+            </div>
+        </div>
+        </div>,
+        <div className="project-item" key="yanindayim">
+        <div className="project-item-image-container">
+            <div className="project-item-image">
+                <Image src={yanindayim} alt="Yanındayım" />
+            </div>
+        </div>
+        <div className="project-text mt-4">
+            <div className="project-title flex items-center justify-between gap-5">
+                <h1 className="text-[24px] text-white font-bold">Yanındayım</h1>
+                <div className="project-line"></div>
+                <div className="project-icons flex">
+                    <a href="https://github.com/sezergumus/yanindayim" target='_blank' className="github">
+                            <svg width="28" height="28" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.9773 25.7664C10.9773 25.8987 10.8251 26.0046 10.6332 26.0046C10.4148 26.0244 10.2626 25.9185 10.2626 25.7664C10.2626 25.634 10.4148 25.5281 10.6067 25.5281C10.8052 25.5083 10.9773 25.6142 10.9773 25.7664ZM8.91939 25.4686C8.87307 25.6009 9.00541 25.7531 9.20391 25.7928C9.37596 25.859 9.57446 25.7928 9.61417 25.6605C9.65387 25.5281 9.52814 25.376 9.32964 25.3164C9.1576 25.2701 8.9657 25.3363 8.91939 25.4686ZM11.8441 25.3561C11.6522 25.4024 11.5198 25.5281 11.5397 25.6803C11.5595 25.8127 11.7316 25.8987 11.9301 25.8524C12.122 25.8061 12.2543 25.6803 12.2345 25.548C12.2146 25.4223 12.036 25.3363 11.8441 25.3561ZM16.198 0C7.02033 0 -0.000244141 6.96763 -0.000244141 16.1453C-0.000244141 23.4835 4.61838 29.763 11.2155 31.973C12.0624 32.1252 12.3602 31.6025 12.3602 31.1724C12.3602 30.7621 12.3403 28.4991 12.3403 27.1096C12.3403 27.1096 7.70849 28.1021 6.7358 25.1377C6.7358 25.1377 5.98147 23.2122 4.89629 22.7159C4.89629 22.7159 3.38101 21.6771 5.00216 21.6969C5.00216 21.6969 6.64978 21.8293 7.5563 23.4041C9.00541 25.9582 11.4338 25.2238 12.38 24.787C12.5322 23.7283 12.9623 22.9939 13.4388 22.5571C9.73989 22.1469 6.00793 21.6109 6.00793 15.2454C6.00793 13.4258 6.51082 12.5126 7.56953 11.348C7.39749 10.9179 6.83505 9.14461 7.74157 6.85515C9.12451 6.42505 12.3073 8.64172 12.3073 8.64172C13.6306 8.27117 15.0533 8.07928 16.4627 8.07928C17.8721 8.07928 19.2947 8.27117 20.6181 8.64172C20.6181 8.64172 23.8009 6.41843 25.1838 6.85515C26.0903 9.15122 25.5279 10.9179 25.3559 11.348C26.4146 12.5192 27.063 13.4324 27.063 15.2454C27.063 21.6308 23.1657 22.1403 19.4668 22.5571C20.0755 23.0799 20.5917 24.0724 20.5917 25.6274C20.5917 27.8573 20.5718 30.6166 20.5718 31.1592C20.5718 31.5893 20.8762 32.112 21.7165 31.9598C28.3335 29.763 32.8198 23.4835 32.8198 16.1453C32.8198 6.96763 25.3757 0 16.198 0ZM6.43142 22.8218C6.3454 22.888 6.36525 23.0402 6.47774 23.1659C6.58361 23.2718 6.7358 23.3181 6.82182 23.2321C6.90784 23.1659 6.88799 23.0137 6.7755 22.888C6.66963 22.7821 6.51744 22.7358 6.43142 22.8218ZM5.71679 22.2858C5.67047 22.3719 5.73664 22.4777 5.86898 22.5439C5.97485 22.6101 6.10719 22.5902 6.15351 22.4976C6.19983 22.4116 6.13366 22.3057 6.00132 22.2395C5.86898 22.1998 5.76311 22.2197 5.71679 22.2858ZM7.86068 24.6415C7.75481 24.7275 7.79451 24.926 7.9467 25.0517C8.09889 25.2039 8.29078 25.2238 8.3768 25.1179C8.46282 25.0319 8.42312 24.8334 8.29078 24.7076C8.14521 24.5555 7.9467 24.5356 7.86068 24.6415ZM7.10635 23.6688C7.00047 23.735 7.00047 23.907 7.10635 24.0592C7.21222 24.2114 7.39087 24.2775 7.47689 24.2114C7.58277 24.1254 7.58277 23.9533 7.47689 23.8011C7.38426 23.6489 7.21222 23.5828 7.10635 23.6688Z" fill="white"/>
+                            </svg>
+                    </a>
+                    <a href="https://yanindayim.co" target='_blank' className="live-project">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="32" width="32" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M888.3 757.4h-53.8c-4.2 0-7.7 3.5-7.7 7.7v61.8H197.1V197.1h629.8v61.8c0 4.2 3.5 7.7 7.7 7.7h53.8c4.2 0 7.7-3.4 7.7-7.7V158.7c0-17-13.7-30.7-30.7-30.7H158.7c-17 0-30.7 13.7-30.7 30.7v706.6c0 17 13.7 30.7 30.7 30.7h706.6c17 0 30.7-13.7 30.7-30.7V765.1c0-4.3-3.5-7.7-7.7-7.7zm18.6-251.7L765 393.7c-5.3-4.2-13-.4-13 6.3v76H438c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div className="project-stack mt-4">
+                <p className="text-white text-[18px] text-yellow font-medium">React - MaterialUI - Vite</p>
+            </div>
+            <div className="project-desc mt-4">
+                <p className="text-white text-[18px] font-extralight">A social responsibility project for earthquake in Türkiye with this site I learnt DB Management & Authorization.</p>
+            </div>
+        </div>
+        </div>,
+        <div className="project-item" key="sphere">
+        <div className="project-item-image-container">
+            <div className="project-item-image">
+                <Image src={sphere} alt="Sphere" />
+            </div>
+        </div>
+        <div className="project-text mt-4">
+            <div className="project-title flex items-center justify-between gap-5">
+                <h1 className="text-[24px] text-white font-bold">Sphere</h1>
+                <div className="project-line"></div>
+                <div className="project-icons flex">
+                    <a href="https://github.com/sezergumus/threejs-sphere" target='_blank' className="github">
+                            <svg width="28" height="28" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.9773 25.7664C10.9773 25.8987 10.8251 26.0046 10.6332 26.0046C10.4148 26.0244 10.2626 25.9185 10.2626 25.7664C10.2626 25.634 10.4148 25.5281 10.6067 25.5281C10.8052 25.5083 10.9773 25.6142 10.9773 25.7664ZM8.91939 25.4686C8.87307 25.6009 9.00541 25.7531 9.20391 25.7928C9.37596 25.859 9.57446 25.7928 9.61417 25.6605C9.65387 25.5281 9.52814 25.376 9.32964 25.3164C9.1576 25.2701 8.9657 25.3363 8.91939 25.4686ZM11.8441 25.3561C11.6522 25.4024 11.5198 25.5281 11.5397 25.6803C11.5595 25.8127 11.7316 25.8987 11.9301 25.8524C12.122 25.8061 12.2543 25.6803 12.2345 25.548C12.2146 25.4223 12.036 25.3363 11.8441 25.3561ZM16.198 0C7.02033 0 -0.000244141 6.96763 -0.000244141 16.1453C-0.000244141 23.4835 4.61838 29.763 11.2155 31.973C12.0624 32.1252 12.3602 31.6025 12.3602 31.1724C12.3602 30.7621 12.3403 28.4991 12.3403 27.1096C12.3403 27.1096 7.70849 28.1021 6.7358 25.1377C6.7358 25.1377 5.98147 23.2122 4.89629 22.7159C4.89629 22.7159 3.38101 21.6771 5.00216 21.6969C5.00216 21.6969 6.64978 21.8293 7.5563 23.4041C9.00541 25.9582 11.4338 25.2238 12.38 24.787C12.5322 23.7283 12.9623 22.9939 13.4388 22.5571C9.73989 22.1469 6.00793 21.6109 6.00793 15.2454C6.00793 13.4258 6.51082 12.5126 7.56953 11.348C7.39749 10.9179 6.83505 9.14461 7.74157 6.85515C9.12451 6.42505 12.3073 8.64172 12.3073 8.64172C13.6306 8.27117 15.0533 8.07928 16.4627 8.07928C17.8721 8.07928 19.2947 8.27117 20.6181 8.64172C20.6181 8.64172 23.8009 6.41843 25.1838 6.85515C26.0903 9.15122 25.5279 10.9179 25.3559 11.348C26.4146 12.5192 27.063 13.4324 27.063 15.2454C27.063 21.6308 23.1657 22.1403 19.4668 22.5571C20.0755 23.0799 20.5917 24.0724 20.5917 25.6274C20.5917 27.8573 20.5718 30.6166 20.5718 31.1592C20.5718 31.5893 20.8762 32.112 21.7165 31.9598C28.3335 29.763 32.8198 23.4835 32.8198 16.1453C32.8198 6.96763 25.3757 0 16.198 0ZM6.43142 22.8218C6.3454 22.888 6.36525 23.0402 6.47774 23.1659C6.58361 23.2718 6.7358 23.3181 6.82182 23.2321C6.90784 23.1659 6.88799 23.0137 6.7755 22.888C6.66963 22.7821 6.51744 22.7358 6.43142 22.8218ZM5.71679 22.2858C5.67047 22.3719 5.73664 22.4777 5.86898 22.5439C5.97485 22.6101 6.10719 22.5902 6.15351 22.4976C6.19983 22.4116 6.13366 22.3057 6.00132 22.2395C5.86898 22.1998 5.76311 22.2197 5.71679 22.2858ZM7.86068 24.6415C7.75481 24.7275 7.79451 24.926 7.9467 25.0517C8.09889 25.2039 8.29078 25.2238 8.3768 25.1179C8.46282 25.0319 8.42312 24.8334 8.29078 24.7076C8.14521 24.5555 7.9467 24.5356 7.86068 24.6415ZM7.10635 23.6688C7.00047 23.735 7.00047 23.907 7.10635 24.0592C7.21222 24.2114 7.39087 24.2775 7.47689 24.2114C7.58277 24.1254 7.58277 23.9533 7.47689 23.8011C7.38426 23.6489 7.21222 23.5828 7.10635 23.6688Z" fill="white"/>
+                            </svg>
+                    </a>
+                    <a href="https://threejs-sphere.sezergumus.dev/" target='_blank' className="live-project">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="32" width="32" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M888.3 757.4h-53.8c-4.2 0-7.7 3.5-7.7 7.7v61.8H197.1V197.1h629.8v61.8c0 4.2 3.5 7.7 7.7 7.7h53.8c4.2 0 7.7-3.4 7.7-7.7V158.7c0-17-13.7-30.7-30.7-30.7H158.7c-17 0-30.7 13.7-30.7 30.7v706.6c0 17 13.7 30.7 30.7 30.7h706.6c17 0 30.7-13.7 30.7-30.7V765.1c0-4.3-3.5-7.7-7.7-7.7zm18.6-251.7L765 393.7c-5.3-4.2-13-.4-13 6.3v76H438c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div className="project-stack mt-4">
+                <p className="text-white text-[18px] text-yellow font-medium">ThreeJS - GSAP - Vite</p>
+            </div>
+            <div className="project-desc mt-4">
+                <p className="text-white text-[18px] font-extralight">Who doesn&apos;t like cool spheres? 🔮</p>
+            </div>
+        </div>
+        </div>,
+        <div className="project-item" key="celebchat">
+        <div className="project-item-image-container">
+            <div className="project-item-image">
+                <Image src={celebchat} alt="Celebchat" />
+            </div>
+        </div>
+        <div className="project-text mt-4">
+            <div className="project-title flex items-center justify-between gap-5">
+                <h1 className="text-[24px] text-white font-bold">Celebchat</h1>
+                <div className="project-line"></div>
+                <div className="project-icons flex">
+                    <a href="https://github.com/sezergumus/celebchat" target='_blank' className="github">
+                            <svg width="28" height="28" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.9773 25.7664C10.9773 25.8987 10.8251 26.0046 10.6332 26.0046C10.4148 26.0244 10.2626 25.9185 10.2626 25.7664C10.2626 25.634 10.4148 25.5281 10.6067 25.5281C10.8052 25.5083 10.9773 25.6142 10.9773 25.7664ZM8.91939 25.4686C8.87307 25.6009 9.00541 25.7531 9.20391 25.7928C9.37596 25.859 9.57446 25.7928 9.61417 25.6605C9.65387 25.5281 9.52814 25.376 9.32964 25.3164C9.1576 25.2701 8.9657 25.3363 8.91939 25.4686ZM11.8441 25.3561C11.6522 25.4024 11.5198 25.5281 11.5397 25.6803C11.5595 25.8127 11.7316 25.8987 11.9301 25.8524C12.122 25.8061 12.2543 25.6803 12.2345 25.548C12.2146 25.4223 12.036 25.3363 11.8441 25.3561ZM16.198 0C7.02033 0 -0.000244141 6.96763 -0.000244141 16.1453C-0.000244141 23.4835 4.61838 29.763 11.2155 31.973C12.0624 32.1252 12.3602 31.6025 12.3602 31.1724C12.3602 30.7621 12.3403 28.4991 12.3403 27.1096C12.3403 27.1096 7.70849 28.1021 6.7358 25.1377C6.7358 25.1377 5.98147 23.2122 4.89629 22.7159C4.89629 22.7159 3.38101 21.6771 5.00216 21.6969C5.00216 21.6969 6.64978 21.8293 7.5563 23.4041C9.00541 25.9582 11.4338 25.2238 12.38 24.787C12.5322 23.7283 12.9623 22.9939 13.4388 22.5571C9.73989 22.1469 6.00793 21.6109 6.00793 15.2454C6.00793 13.4258 6.51082 12.5126 7.56953 11.348C7.39749 10.9179 6.83505 9.14461 7.74157 6.85515C9.12451 6.42505 12.3073 8.64172 12.3073 8.64172C13.6306 8.27117 15.0533 8.07928 16.4627 8.07928C17.8721 8.07928 19.2947 8.27117 20.6181 8.64172C20.6181 8.64172 23.8009 6.41843 25.1838 6.85515C26.0903 9.15122 25.5279 10.9179 25.3559 11.348C26.4146 12.5192 27.063 13.4324 27.063 15.2454C27.063 21.6308 23.1657 22.1403 19.4668 22.5571C20.0755 23.0799 20.5917 24.0724 20.5917 25.6274C20.5917 27.8573 20.5718 30.6166 20.5718 31.1592C20.5718 31.5893 20.8762 32.112 21.7165 31.9598C28.3335 29.763 32.8198 23.4835 32.8198 16.1453C32.8198 6.96763 25.3757 0 16.198 0ZM6.43142 22.8218C6.3454 22.888 6.36525 23.0402 6.47774 23.1659C6.58361 23.2718 6.7358 23.3181 6.82182 23.2321C6.90784 23.1659 6.88799 23.0137 6.7755 22.888C6.66963 22.7821 6.51744 22.7358 6.43142 22.8218ZM5.71679 22.2858C5.67047 22.3719 5.73664 22.4777 5.86898 22.5439C5.97485 22.6101 6.10719 22.5902 6.15351 22.4976C6.19983 22.4116 6.13366 22.3057 6.00132 22.2395C5.86898 22.1998 5.76311 22.2197 5.71679 22.2858ZM7.86068 24.6415C7.75481 24.7275 7.79451 24.926 7.9467 25.0517C8.09889 25.2039 8.29078 25.2238 8.3768 25.1179C8.46282 25.0319 8.42312 24.8334 8.29078 24.7076C8.14521 24.5555 7.9467 24.5356 7.86068 24.6415ZM7.10635 23.6688C7.00047 23.735 7.00047 23.907 7.10635 24.0592C7.21222 24.2114 7.39087 24.2775 7.47689 24.2114C7.58277 24.1254 7.58277 23.9533 7.47689 23.8011C7.38426 23.6489 7.21222 23.5828 7.10635 23.6688Z" fill="white"/>
+                            </svg>
+                    </a>
+                    <a href="https://celebchat.sezergumus.dev/" target='_blank' className="live-project">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="32" width="32" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M888.3 757.4h-53.8c-4.2 0-7.7 3.5-7.7 7.7v61.8H197.1V197.1h629.8v61.8c0 4.2 3.5 7.7 7.7 7.7h53.8c4.2 0 7.7-3.4 7.7-7.7V158.7c0-17-13.7-30.7-30.7-30.7H158.7c-17 0-30.7 13.7-30.7 30.7v706.6c0 17 13.7 30.7 30.7 30.7h706.6c17 0 30.7-13.7 30.7-30.7V765.1c0-4.3-3.5-7.7-7.7-7.7zm18.6-251.7L765 393.7c-5.3-4.2-13-.4-13 6.3v76H438c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div className="project-stack mt-4">
+                <p className="text-white text-[18px] text-yellow font-medium">GPT - React - TypeScript - Vite</p>
+            </div>
+            <div className="project-desc mt-4">
+                <p className="text-white text-[18px] font-extralight">An AI chatbot app for chatting with celebrities or fictional characters.</p>
+            </div>
+        </div>
+        </div>,
+        <div className="project-item" key="scribble">
+        <div className="project-item-image-container">
+            <div className="project-item-image">
+                <Image src={scribble} alt="Scribble It!" />
+            </div>
+        </div>
+        <div className="project-text mt-4">
+            <div className="project-title flex items-center justify-between gap-5">
+                <h1 className="text-[24px] text-white font-bold whitespace-nowrap">Scribble It!</h1>
+                <div className="project-line"></div>
+                <div className="project-icons flex">
+                    <a href="https://github.com/Sezergumus/scribble-it" target='_blank' className="github">
+                            <svg width="28" height="28" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.9773 25.7664C10.9773 25.8987 10.8251 26.0046 10.6332 26.0046C10.4148 26.0244 10.2626 25.9185 10.2626 25.7664C10.2626 25.634 10.4148 25.5281 10.6067 25.5281C10.8052 25.5083 10.9773 25.6142 10.9773 25.7664ZM8.91939 25.4686C8.87307 25.6009 9.00541 25.7531 9.20391 25.7928C9.37596 25.859 9.57446 25.7928 9.61417 25.6605C9.65387 25.5281 9.52814 25.376 9.32964 25.3164C9.1576 25.2701 8.9657 25.3363 8.91939 25.4686ZM11.8441 25.3561C11.6522 25.4024 11.5198 25.5281 11.5397 25.6803C11.5595 25.8127 11.7316 25.8987 11.9301 25.8524C12.122 25.8061 12.2543 25.6803 12.2345 25.548C12.2146 25.4223 12.036 25.3363 11.8441 25.3561ZM16.198 0C7.02033 0 -0.000244141 6.96763 -0.000244141 16.1453C-0.000244141 23.4835 4.61838 29.763 11.2155 31.973C12.0624 32.1252 12.3602 31.6025 12.3602 31.1724C12.3602 30.7621 12.3403 28.4991 12.3403 27.1096C12.3403 27.1096 7.70849 28.1021 6.7358 25.1377C6.7358 25.1377 5.98147 23.2122 4.89629 22.7159C4.89629 22.7159 3.38101 21.6771 5.00216 21.6969C5.00216 21.6969 6.64978 21.8293 7.5563 23.4041C9.00541 25.9582 11.4338 25.2238 12.38 24.787C12.5322 23.7283 12.9623 22.9939 13.4388 22.5571C9.73989 22.1469 6.00793 21.6109 6.00793 15.2454C6.00793 13.4258 6.51082 12.5126 7.56953 11.348C7.39749 10.9179 6.83505 9.14461 7.74157 6.85515C9.12451 6.42505 12.3073 8.64172 12.3073 8.64172C13.6306 8.27117 15.0533 8.07928 16.4627 8.07928C17.8721 8.07928 19.2947 8.27117 20.6181 8.64172C20.6181 8.64172 23.8009 6.41843 25.1838 6.85515C26.0903 9.15122 25.5279 10.9179 25.3559 11.348C26.4146 12.5192 27.063 13.4324 27.063 15.2454C27.063 21.6308 23.1657 22.1403 19.4668 22.5571C20.0755 23.0799 20.5917 24.0724 20.5917 25.6274C20.5917 27.8573 20.5718 30.6166 20.5718 31.1592C20.5718 31.5893 20.8762 32.112 21.7165 31.9598C28.3335 29.763 32.8198 23.4835 32.8198 16.1453C32.8198 6.96763 25.3757 0 16.198 0ZM6.43142 22.8218C6.3454 22.888 6.36525 23.0402 6.47774 23.1659C6.58361 23.2718 6.7358 23.3181 6.82182 23.2321C6.90784 23.1659 6.88799 23.0137 6.7755 22.888C6.66963 22.7821 6.51744 22.7358 6.43142 22.8218ZM5.71679 22.2858C5.67047 22.3719 5.73664 22.4777 5.86898 22.5439C5.97485 22.6101 6.10719 22.5902 6.15351 22.4976C6.19983 22.4116 6.13366 22.3057 6.00132 22.2395C5.86898 22.1998 5.76311 22.2197 5.71679 22.2858ZM7.86068 24.6415C7.75481 24.7275 7.79451 24.926 7.9467 25.0517C8.09889 25.2039 8.29078 25.2238 8.3768 25.1179C8.46282 25.0319 8.42312 24.8334 8.29078 24.7076C8.14521 24.5555 7.9467 24.5356 7.86068 24.6415ZM7.10635 23.6688C7.00047 23.735 7.00047 23.907 7.10635 24.0592C7.21222 24.2114 7.39087 24.2775 7.47689 24.2114C7.58277 24.1254 7.58277 23.9533 7.47689 23.8011C7.38426 23.6489 7.21222 23.5828 7.10635 23.6688Z" fill="white"/>
+                            </svg>
+                    </a>
+                    <a href="https://scribble.sezergumus.dev/" target='_blank' className="live-project">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="32" width="32" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M888.3 757.4h-53.8c-4.2 0-7.7 3.5-7.7 7.7v61.8H197.1V197.1h629.8v61.8c0 4.2 3.5 7.7 7.7 7.7h53.8c4.2 0 7.7-3.4 7.7-7.7V158.7c0-17-13.7-30.7-30.7-30.7H158.7c-17 0-30.7 13.7-30.7 30.7v706.6c0 17 13.7 30.7 30.7 30.7h706.6c17 0 30.7-13.7 30.7-30.7V765.1c0-4.3-3.5-7.7-7.7-7.7zm18.6-251.7L765 393.7c-5.3-4.2-13-.4-13 6.3v76H438c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div className="project-stack mt-4">
+                <p className="text-white text-[18px] text-yellow font-medium">HTML - CSS - JavaScript</p>
+            </div>
+            <div className="project-desc mt-4">
+                <p className="text-white text-[18px] font-extralight">A web app that lets you scribble like MS Paint with this site I learnt about JS canvas.</p>
+            </div>
+        </div>
+        </div>,
+        <div className="project-item" key="qr">
+            <div className="project-item-image-container">
+                <div className="project-item-image">
+                    <Image src={qr} alt="QR Gen" />
+                </div>
+            </div>
+            <div className="project-text mt-4">
+                <div className="project-title flex items-center justify-between gap-5">
+                    <h1 className="text-[24px] text-white font-bold whitespace-nowrap">QR Generator</h1>
+                    <div className="project-line"></div>
+                    <div className="project-icons flex">
+                        <a href="https://github.com/Sezergumus/QR-Code-Generator" target='_blank' className="github">
+                                <svg width="28" height="28" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10.9773 25.7664C10.9773 25.8987 10.8251 26.0046 10.6332 26.0046C10.4148 26.0244 10.2626 25.9185 10.2626 25.7664C10.2626 25.634 10.4148 25.5281 10.6067 25.5281C10.8052 25.5083 10.9773 25.6142 10.9773 25.7664ZM8.91939 25.4686C8.87307 25.6009 9.00541 25.7531 9.20391 25.7928C9.37596 25.859 9.57446 25.7928 9.61417 25.6605C9.65387 25.5281 9.52814 25.376 9.32964 25.3164C9.1576 25.2701 8.9657 25.3363 8.91939 25.4686ZM11.8441 25.3561C11.6522 25.4024 11.5198 25.5281 11.5397 25.6803C11.5595 25.8127 11.7316 25.8987 11.9301 25.8524C12.122 25.8061 12.2543 25.6803 12.2345 25.548C12.2146 25.4223 12.036 25.3363 11.8441 25.3561ZM16.198 0C7.02033 0 -0.000244141 6.96763 -0.000244141 16.1453C-0.000244141 23.4835 4.61838 29.763 11.2155 31.973C12.0624 32.1252 12.3602 31.6025 12.3602 31.1724C12.3602 30.7621 12.3403 28.4991 12.3403 27.1096C12.3403 27.1096 7.70849 28.1021 6.7358 25.1377C6.7358 25.1377 5.98147 23.2122 4.89629 22.7159C4.89629 22.7159 3.38101 21.6771 5.00216 21.6969C5.00216 21.6969 6.64978 21.8293 7.5563 23.4041C9.00541 25.9582 11.4338 25.2238 12.38 24.787C12.5322 23.7283 12.9623 22.9939 13.4388 22.5571C9.73989 22.1469 6.00793 21.6109 6.00793 15.2454C6.00793 13.4258 6.51082 12.5126 7.56953 11.348C7.39749 10.9179 6.83505 9.14461 7.74157 6.85515C9.12451 6.42505 12.3073 8.64172 12.3073 8.64172C13.6306 8.27117 15.0533 8.07928 16.4627 8.07928C17.8721 8.07928 19.2947 8.27117 20.6181 8.64172C20.6181 8.64172 23.8009 6.41843 25.1838 6.85515C26.0903 9.15122 25.5279 10.9179 25.3559 11.348C26.4146 12.5192 27.063 13.4324 27.063 15.2454C27.063 21.6308 23.1657 22.1403 19.4668 22.5571C20.0755 23.0799 20.5917 24.0724 20.5917 25.6274C20.5917 27.8573 20.5718 30.6166 20.5718 31.1592C20.5718 31.5893 20.8762 32.112 21.7165 31.9598C28.3335 29.763 32.8198 23.4835 32.8198 16.1453C32.8198 6.96763 25.3757 0 16.198 0ZM6.43142 22.8218C6.3454 22.888 6.36525 23.0402 6.47774 23.1659C6.58361 23.2718 6.7358 23.3181 6.82182 23.2321C6.90784 23.1659 6.88799 23.0137 6.7755 22.888C6.66963 22.7821 6.51744 22.7358 6.43142 22.8218ZM5.71679 22.2858C5.67047 22.3719 5.73664 22.4777 5.86898 22.5439C5.97485 22.6101 6.10719 22.5902 6.15351 22.4976C6.19983 22.4116 6.13366 22.3057 6.00132 22.2395C5.86898 22.1998 5.76311 22.2197 5.71679 22.2858ZM7.86068 24.6415C7.75481 24.7275 7.79451 24.926 7.9467 25.0517C8.09889 25.2039 8.29078 25.2238 8.3768 25.1179C8.46282 25.0319 8.42312 24.8334 8.29078 24.7076C8.14521 24.5555 7.9467 24.5356 7.86068 24.6415ZM7.10635 23.6688C7.00047 23.735 7.00047 23.907 7.10635 24.0592C7.21222 24.2114 7.39087 24.2775 7.47689 24.2114C7.58277 24.1254 7.58277 23.9533 7.47689 23.8011C7.38426 23.6489 7.21222 23.5828 7.10635 23.6688Z" fill="white"/>
+                                </svg>
+                        </a>
+                        <a href="https://qr.sezergumus.dev/" target='_blank' className="live-project">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="32" width="32" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M888.3 757.4h-53.8c-4.2 0-7.7 3.5-7.7 7.7v61.8H197.1V197.1h629.8v61.8c0 4.2 3.5 7.7 7.7 7.7h53.8c4.2 0 7.7-3.4 7.7-7.7V158.7c0-17-13.7-30.7-30.7-30.7H158.7c-17 0-30.7 13.7-30.7 30.7v706.6c0 17 13.7 30.7 30.7 30.7h706.6c17 0 30.7-13.7 30.7-30.7V765.1c0-4.3-3.5-7.7-7.7-7.7zm18.6-251.7L765 393.7c-5.3-4.2-13-.4-13 6.3v76H438c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div className="project-stack mt-4">
+                    <p className="text-white text-[18px] text-yellow font-medium">HTML - CSS - JavaScript - jQuery</p>
+                </div>
+                <div className="project-desc mt-4">
+                    <p className="text-white text-[18px] font-extralight">A QR code generator.</p>
+                </div>
+            </div>
+        </div>
+    ]
+
+    return (
+        <section className="projects-container mt-[128px]" id="crafts">
+            <div className="title-container flex flex-row items-center justify-between gap-3">
+                <Reveal><h1 className={`${archivo.className} title text-yellow text-[64px] mb-32px`}>Crafts.</h1></Reveal>
+                <div className="title-line"></div>
+            </div>
+            <Reveal><p className="mb-[32px] text-[24px] project-subtitle">Great projects are like puzzle pieces they connect together. 🧩</p></Reveal>
+
+            <motion.div 
+                className="projects-content grid grid-cols-2 gap-8"
+                variants={container}
+                initial= "hidden"    
+                animate= {mainControls}
+                ref= {ref}
+            >
+                { projects.map((project, index) => {
+                    return (
+                        <motion.div
+                            key={index}
+                            variants={item}
+                        >
+                            {project}
+                        </motion.div>
+                    )
+                })}
+            </motion.div>
+        </section>
+    )
 }

@@ -23,7 +23,7 @@ export default function Circle() {
   }
 
   return (
-    <div className="bottom-circle-container fixed bottom-[64px] right-[64px] cursor-pointer" onClick={handleClick}>
+    <div className="bottom-circle-container fixed bottom-[64px] right-[64px] cursor-pointer z-40" onClick={handleClick}>
         {/* <div className="bottom-circle rounded-full w-[96px] h-[96px] bg-[#1A1717] relative">
             <h1 className="text-yellow">SCROLL SCROLL SCROLL</h1>
             <div className="inner-circle rounded-full w-[64px] h-[64px] bg-[#100D0D] absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]"></div>

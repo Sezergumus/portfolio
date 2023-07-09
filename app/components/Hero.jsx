@@ -43,22 +43,26 @@ export default function Hero() {
 
     return (
         <div className="hero-container flex justify-center">
-            <motion.div className="hero-inner mt-[64px] w-full"
+            <motion.section className="hero-inner mt-[64px] w-full"
+              id="home"
               variants={{
                 hidden: { opacity: 0, y: 100 },
                 visible: { opacity: 1, y: 0 },
               }}
               initial="hidden"
               animate="visible"
-              transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+              transition={{ duration: 1, ease: "easeOut" }}
             >
             <div className="svg-world-container relative overflow-hidden w-full">
                 <div className="available bg-[#3B604D]/[.35] w-fit py-2 px-4 rounded-3xl absolute left-1/2 top-[10%] translate-x-[-50%]">
                     <div className="available-inner flex row items-center gap-2">
                         <div className="online-dot-container">
-                            <div className="online-dot rounded w-1.5 h-1.5 bg-[#69FF97]"></div>
+                            <div className="online-dot rounded-full w-2 h-2 bg-[#69FF97] flex justify-center items-center">
+                              <div className="online-dot-blip rounded-full w-3 h-3 bg-[#69ff9740] absolute"></div>
+                              <div className="online-dot-bg rounded-full w-3 h-3 bg-[#69FF97] opacity-10 absolute"></div>
+                            </div>
                         </div>
-                        <div className="available-text text-[#69FF97]">Available for new projects</div>
+                        <div className="available-text text-[#69FF97] whitespace-nowrap">Available for new projects</div>
                     </div>
                 </div>
                 <svg viewBox="0 0 1063 815" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
@@ -71,7 +75,7 @@ export default function Hero() {
                     className='absolute left-[50%] bottom-[-48%] translate-x-[-50%] world'
                 />
             </div>
-            </motion.div>
+            </motion.section>
         </div>
     )
 }

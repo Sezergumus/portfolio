@@ -19,8 +19,8 @@ export default function ProgressBar() {
 
 
   return (
-    <div className="progress-bar bg-[#393939] h-3 sticky top-0 left-0 z-10 w-full">
-      <div style={{width: `${progress}%`}} className={`progress-bar-inner bg-yellow h-3 sticky top-0 left-0 z-10`}></div>  
+    <div className="progress-bar bg-[#393939] h-3 fixed top-0 left-0 z-50 w-full">
+      <div style={{width: `${progress}%`}} className={`progress-bar-inner bg-yellow h-3 sticky top-0 left-0 z-50`}></div>  
     </div>
   )
 }

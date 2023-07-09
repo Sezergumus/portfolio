@@ -14,11 +14,19 @@ html{
   background-color: #1A1A20;
   scroll-behavior: smooth;
   color: white;
+  overflow-x: hidden;
 }
 
 .title{
   font-family: 'Archivo Black', sans-serif;
   font-weight: bold;
+}
+
+.title-line{
+  width: 100%;
+  height: 1px;
+  background-color: white;
+  opacity: .3;
 }
 
 .power-up{
@@ -68,26 +76,43 @@ html{
   flex-direction: column;
 }
 
-.project-image{
-  margin: auto;
+.project-item-image{
+  background-color: #232323;
+  width: 100%;
+  aspect-ratio: 16/9;
+  cursor: pointer;
+  position: relative;
+  border-radius: .8rem;
+  overflow: hidden;
   transition: all 0.25s ease-in-out;
+}
+
+.project-item-image img{
+  width: 85%;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  translate: -50% 20%;
+  transition: all .25s;
+  border-radius: .4rem;
 }
 
 .project-name-date{
   width: 100%;
 }
 
-.project-item{
-  cursor: pointer;
-  transition: all 0.25s ease-in-out;
+.project-item-image:hover img{
+  width: 90%;
+  rotate: 2deg;
 }
 
-.project-item:hover .project-image{
-  transform: scale(1.1);
+.project-title a{
+  opacity: 75%;
+  transition: all 0.25s;
 }
 
-.project-item:hover{
-  transform: scale(1.1);
+.project-title a:hover{
+  opacity: 1;
 }
 
 .rich-text{
@@ -103,25 +128,52 @@ html{
   transform: rotate(-3deg);
 }
 
-.fixed-nav{
+/* .fixed-nav{
   position: fixed;
   top: 0px;
   left: 50%;
   transform: translateX(-50%);
+} */
+
+nav a {
+  writing-mode: vertical-lr;
+  height: 120px;
+  font-weight: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  opacity: .5;
+  border-right: 1px solid transparent;
+  transition: all .1s;
+  font-size: 24px;
+  letter-spacing: 1px;
+  width: 80px;
 }
 
-/* keep rotating circle */
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+nav a.active{
+  opacity: 1;
+  border-right: 1px solid #aebd00;
+  background-color: #111111;
+  font-weight: bold;
+  transition: all .25s;
 }
 
-.bottom-circle-container .circle{
-  animation: rotate 0s linear infinite;
+nav a:hover {
+  background-color: #111111;
+}
+
+nav span{
+  margin-top: 32px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.project-line{
+  width: 100%;
+  height: 1px;
+  background-color: white;
+  opacity: .3;
 }
 
 .chevron-up{
@@ -130,6 +182,30 @@ html{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.mail-container{
+  transition: all .25s;
+}
+
+.mail-container:hover{
+  color: #aebd00;
+}
+
+.online-dot-blip{
+  animation: blip 1s infinite ease-in-out;
+}
+
+@keyframes blip {
+  0% {
+    trasnform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100%{
+    transform: scale(1);
+  }
 }
 
 /* media query for screens smaller than 900px */
@@ -174,6 +250,44 @@ html{
   .footer-lower-left{
     align-items: center;
   }
+
+  .project-title h1{
+    font-size: 18px;
+  }
+
+  .project-stack p{
+    font-size: 16px;
+  }
+
+  .project-desc p{
+    font-size: 16px;
+  }
+  
+  .project-title svg{
+    height: 20px;
+  }
+
+  .footer-content h3, .footer-content span{
+    font-size: 30px;
+  }
+
+  section.footer-container svg{
+    height: 30px;
+  }
+
+  .title{
+    font-size: 48px;
+  }
+
+  .about-text p{
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .stack-icons{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-row-gap: 32px;
+  }
 }
 
 /* media query for screens smaller than 600px */
@@ -194,14 +308,6 @@ html{
     font-size: 32px;
   }
 
-  .about-text p{
-    font-size: 18px;
-  }
-
-  #stack p, #crafts p{
-    font-size: 18px;
-  }
-
   .stack-icons{
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-row-gap: 16px;
@@ -218,4 +324,44 @@ html{
   .footer-upper h3{
     font-size: 24px;
   }
+
+  h1.title{
+    font-size: 24px;
+  }
+
+  .about-text p{
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  .stack-subtitle{
+    font-size: 16px;
+  }
+
+  .stack-icons p, .project-subtitle{
+    font-size: 16px;
+  }
+
+  nav a{
+    width: 60px;
+    font-size: 18px;
+  }
+
+  .available-text{
+    font-size: 14px;
+  }
+
+  .chevron-up{
+    width: 24px;
+  }
+
+  .circle{
+    width: 80px;
+  }
+}
+
+@media (min-width: 900px){
+  .main-content section:not(:first-child) {
+    padding: 0 48px;
+  }  
 }
