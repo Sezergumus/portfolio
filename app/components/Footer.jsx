@@ -6,7 +6,7 @@ export default function Footer() {
     <section className="footer-container mt-[128px] bg-[#0B0D0D]" id="footer">
         <div className="footer-content flex flex-col">
             <div className="footer-upper py-[64px] border-b-2 border-[#393939] text-center">
-                <div className='mx-auto w-fit'><Reveal><h3 className="text-[48px] font-bold">Contact me for <span className='rich-text'>amazing</span> works,<br/><span className='rich-text'>stunning</span> visuals.</h3></Reveal></div>
+                <div className='mx-auto w-fit'><Reveal><h3 className="text-[48px] font-bold footer-upper-text">Contact me for <span className='rich-text'>amazing</span> works,<br/><span className='rich-text'>stunning</span> visuals.</h3></Reveal></div>
             </div>
             <div className="footer-lower py-[64px] max-w-[1000px] mx-auto w-full">
                 <div className="footer-lower-content flex flex justify-center">
@@ -15,7 +15,7 @@ export default function Footer() {
                             <a href="mailto:hello@sezergumus.dev">
                                 <div className="mail-container flex flex-row items-center justify-center gap-2">
                                     <svg className="max-[600px]:w-[24px]" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="2.4rem" width="2.4rem" xmlns="http://www.w3.org/2000/svg"><path d="M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zm-80.8 108.9L531.7 514.4c-7.8 6.1-18.7 6.1-26.5 0L189.6 268.9A7.2 7.2 0 0 1 194 256h648.8a7.2 7.2 0 0 1 4.4 12.9z"></path></svg>
-                                    <span className="text-[48px] max-[600px]:text-[18px] font-bold">hello@<b>sezergumus</b>.dev</span>
+                                    <span className="text-[48px] max-[600px]:text-[18px] font-bold footer-lower-mail">hello@<b>sezergumus</b>.dev</span>
                                 </div>
                             </a>
                         </Reveal>
