@@ -95,6 +95,7 @@ html{
   translate: -50% 20%;
   transition: all .25s;
   border-radius: .4rem;
+  max-height: 212px;
 }
 
 .project-name-date{
@@ -287,6 +288,15 @@ nav span{
   .stack-icons{
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-row-gap: 32px;
+  }
+
+  .project-icons{
+    gap: 0;
+  }
+
+  .project-icons .github svg{
+    width: 16px;
+    height: 16px;
   }
 }
 
