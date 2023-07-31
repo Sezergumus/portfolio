@@ -103,7 +103,7 @@ html{
 }
 
 .project-item-image:hover img{
-  width: 90%;
+  bottom: 20px;
   rotate: 2deg;
 }
 
